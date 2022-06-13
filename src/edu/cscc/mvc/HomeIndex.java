@@ -25,7 +25,7 @@ public class HomeIndex extends ApplicationView {
             int choice = scanner.nextInt();
             switch(choice) {
                 case 1:
-                    route("Orders", "index");
+                    route("Rentals", "index");
                     break;
                 case 2:
                     route("Home", "goodbye");
