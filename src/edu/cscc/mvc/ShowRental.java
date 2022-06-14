@@ -31,7 +31,7 @@ public class ShowRental extends ApplicationView {
         System.out.println("");
 
         Map params = new HashMap<>();
-        params.put("id", rental.getId().toString());
+        params.put("id", rental.getId());
         Scanner scanner = new Scanner(System.in);
         System.out.println("Manage rental");
         System.out.println("1. Update rental");

@@ -36,14 +36,16 @@ public class RentalsController extends ApplicationController {
     public void create() {
         render(new CreateRental(context));
     }
+
     public void edit() {
         Rental rental = rentalRepository.read(getRentalIdFromParams());
-   //     render(new EditRental(context, rental));
+        //     render(new EditRental(context, rental));
     }
 
     public void delete() {
-        Rental rental = rentalRepository.read(getRentalIdFromParams());
-    //    render(new DeleteRental(context, rental));
+        rentalRepository.delete(getRentalIdFromParams());
+
+        render(new DeleteRental(context));
     }
 
     public void select() {
@@ -75,7 +77,6 @@ public class RentalsController extends ApplicationController {
                 context.getRequest().getParams().get("director").toString(),
                 context.getRequest().getParams().get("year").toString()));
         render(new SaveRental(context, rental));
-
 
 
     }
