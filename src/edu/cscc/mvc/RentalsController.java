@@ -39,12 +39,11 @@ public class RentalsController extends ApplicationController {
 
     public void edit() {
         Rental rental = rentalRepository.read(getRentalIdFromParams());
-        //     render(new EditRental(context, rental));
+        render(new EditRental(context, rental));
     }
 
     public void delete() {
         rentalRepository.delete(getRentalIdFromParams());
-
         render(new DeleteRental(context));
     }
 
@@ -77,6 +76,21 @@ public class RentalsController extends ApplicationController {
                 context.getRequest().getParams().get("director").toString(),
                 context.getRequest().getParams().get("year").toString()));
         render(new SaveRental(context, rental));
+    }
+
+    public void update() {
+        Format format = null; // Seems odd I need these, but compiler complained
+        Genre genre = null;
+        format = format.fromString(context.getRequest().getParams().get("format").toString());
+        genre = genre.fromString(context.getRequest().getParams().get("genre").toString());
+        Rental rental = new Rental(getRentalIdFromParams(),
+                context.getRequest().getParams().get("name").toString(),
+                format,
+                genre,
+                context.getRequest().getParams().get("director").toString(),
+                context.getRequest().getParams().get("year").toString());
+        rental = rentalRepository.update(rental);
+        render(new ShowRental(context, rental));
 
 
     }
