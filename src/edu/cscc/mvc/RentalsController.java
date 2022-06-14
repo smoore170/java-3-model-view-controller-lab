@@ -7,8 +7,10 @@ import edu.cscc.mvc.domain.RentalRepository;
 import edu.cscc.mvc.framework.ApplicationController;
 import edu.cscc.mvc.framework.ApplicationView;
 import edu.cscc.mvc.framework.MVCContext;
+import edu.cscc.mvc.framework.Request;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -27,7 +29,8 @@ public class RentalsController extends ApplicationController {
     }
 
     public void list() {
-        render(new RentalsIndex(context));
+        List<Rental> rentals = rentalRepository.readAll();
+        render(new ListRentals(context, rentals));
     }
 
     public void create() {
@@ -35,7 +38,7 @@ public class RentalsController extends ApplicationController {
     }
 
     public void select() {
-        //     render(new SelectRental(context));
+        render(new SelectRental(context));
     }
 
     public void index() {
@@ -48,14 +51,14 @@ public class RentalsController extends ApplicationController {
     }
 
     private UUID getRentalIdFromParams() {
-        return UUID.fromString((String) context.getRequest().getParams().get("id").toString());
+        return UUID.fromString(context.getRequest().getParams().get("id").toString());
     }
 
     public void save() {
         Format format = null;
         Genre genre = null;
-format = format.fromString(context.getRequest().getParams().get("format").toString());
-genre = genre.fromString(context.getRequest().getParams().get("genre").toString());
+        format = format.fromString(context.getRequest().getParams().get("format").toString());
+        genre = genre.fromString(context.getRequest().getParams().get("genre").toString());
         Rental rental = rentalRepository.create(new Rental(
                 context.getRequest().getParams().get("name").toString(),
                 format,
@@ -63,6 +66,9 @@ genre = genre.fromString(context.getRequest().getParams().get("genre").toString(
                 context.getRequest().getParams().get("director").toString(),
                 context.getRequest().getParams().get("year").toString()));
         render(new ShowRental(context, rental));
+
+
+
     }
 }
 
