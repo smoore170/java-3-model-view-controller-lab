@@ -36,6 +36,15 @@ public class RentalsController extends ApplicationController {
     public void create() {
         render(new CreateRental(context));
     }
+    public void edit() {
+        Rental rental = rentalRepository.read(getRentalIdFromParams());
+   //     render(new EditRental(context, rental));
+    }
+
+    public void delete() {
+        Rental rental = rentalRepository.read(getRentalIdFromParams());
+    //    render(new DeleteRental(context, rental));
+    }
 
     public void select() {
         render(new SelectRental(context));
@@ -55,7 +64,7 @@ public class RentalsController extends ApplicationController {
     }
 
     public void save() {
-        Format format = null;
+        Format format = null; // Seems odd I need these, but compiler complained
         Genre genre = null;
         format = format.fromString(context.getRequest().getParams().get("format").toString());
         genre = genre.fromString(context.getRequest().getParams().get("genre").toString());
@@ -65,7 +74,7 @@ public class RentalsController extends ApplicationController {
                 genre,
                 context.getRequest().getParams().get("director").toString(),
                 context.getRequest().getParams().get("year").toString()));
-        render(new ShowRental(context, rental));
+        render(new SaveRental(context, rental));
 
 
 
