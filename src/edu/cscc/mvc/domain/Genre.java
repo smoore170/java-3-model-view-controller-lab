@@ -5,5 +5,24 @@ public enum Genre {
     ACTION,
     COMEDY,
     DRAMA,
-    ROMANCE,
+    ROMANCE;
+
+    public static Genre fromString(String x) {
+
+        switch (x) {
+            case "HORROR":
+                return HORROR;
+            case "ACTION":
+                return ACTION;
+            case "COMEDY":
+                return COMEDY;
+            case "DRAMA":
+                return DRAMA;
+            case "ROMANCE":
+                return ROMANCE;
+        }
+        return null;
+
+    }
 }
+
